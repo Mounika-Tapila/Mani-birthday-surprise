@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Surprise For You</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      window.onload = function () {
+        window.scrollTo(0, 0);
+      };
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "instant",
+        });
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"
+    >
+      setInterval(()=>{
+       const p=document.createElement('div');
+       p.className='petal';
+       p.innerHTML='🌹';
+       p.style.left=Math.random()*100+'vw';
+       p.style.animationDuration=(5+Math.random()*5)+'s';
+       document.body.appendChild(p);
+       setTimeout(()=>p.remove(),10000);
+      },800);
+    </script>
+
+    <style>
+      .music-bars {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .music-bars div {
+        width: 10px;
+        height: 40px;
+        background: #ff4d6d;
+        animation: music 1s infinite alternate;
+      }
+
+      .music-bars div:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .music-bars div:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes music {
+        from {
+          height: 20px;
+        }
+        to {
+          height: 80px;
+        }
+      }
+      .hero-screen {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: radial-gradient(circle, #1a1a24, #0d0d11);
+      }
+
+      .hero-screen h1 {
+        font-size: 4rem;
+        color: #fff;
+      }
+      .stars {
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle, #fff 1px, transparent 1px),
+          radial-gradient(circle, #d4af37 1px, transparent 1px);
+        background-size:
+          50px 50px,
+          100px 100px;
+        opacity: 0.25;
+        pointer-events: none;
+        z-index: -1;
+        animation: starsMove 20s linear infinite;
+      }
+
+      @keyframes starsMove {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-200px);
+        }
+      }
+
+      .cursor-glow {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(212, 175, 55, 0.8);
+        filter: blur(12px);
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      .section-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.3),
+          0 0 30px rgba(212, 175, 55, 0.1);
+        transition: 0.5s;
+      }
+
+      .section-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .birthday-title {
+        text-shadow:
+          0 0 10px #ff4d6d,
+          0 0 20px #ff4d6d,
+          0 0 40px #d4af37;
+        animation: titleGlow 2s infinite alternate;
+      }
+
+      @keyframes titleGlow {
+        from {
+          text-shadow:
+            0 0 10px #ff4d6d,
+            0 0 20px #ff4d6d;
+        }
+        to {
+          text-shadow:
+            0 0 20px #ff4d6d,
+            0 0 40px #ff4d6d,
+            0 0 60px #d4af37;
+        }
+      }
+
+      .polaroid {
+        overflow: hidden;
+        border-radius: 15px;
+      }
+
+      .polaroid img {
+        transition: transform 0.5s;
+      }
+
+      .polaroid:hover img {
+        transform: scale(1.1);
+      }
+
+      .flower-pos {
+        animation: bouquetFloat 2s ease-in-out infinite;
+      }
+
+      @keyframes bouquetFloat {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-15px);
+        }
+      }
+
+      .gift-box {
+        animation: giftPulse 2s infinite;
+      }
+
+      @keyframes giftPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+
+      .petal {
+        position: fixed;
+        top: -50px;
+        font-size: 30px;
+        pointer-events: none;
+        z-index: 999;
+        animation: fall linear forwards;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s ease;
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      :root {
+        --bg-color: #0d0d11;
+        --card-bg: #16161f;
+        --accent-color: #ff4d6d;
+        --gold-color: #d4af37;
+        --text-color: #ffffff;
+        --text-muted: #a0a0ab;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      /* --- SPLIT LOCK SCREEN VIEW --- */
+      #lock-screen {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        transition: opacity 0.5s ease-out;
+      }
+
+      /* Left Side: 3 Photos Pop-up Area */
+      .lock-left {
+        flex: 1;
+        background: linear-gradient(135deg, #111116 0%, #1a1a24 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 40px;
+        position: relative;
+        overflow: hidden;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .popup-photo {
+        background: white;
+        padding: 10px 10px 25px 10px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        width: 160px;
+        transform: translateY(120vh) rotate(-5deg);
+        animation: popUpFromBottom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+          forwards;
+      }
+
+      .popup-photo img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border: 1px solid #ddd;
+      }
+
+      /* Staggered entry delay for photos */
+      .popup-photo:nth-child(1) {
+        animation-delay: 0.3s;
+        --rot: -8deg;
+      }
+      .popup-photo:nth-child(2) {
+        animation-delay: 0.6s;
+        --rot: 5deg;
+        margin-top: -30px;
+      }
+      .popup-photo:nth-child(3) {
+        animation-delay: 0.9s;
+        --rot: -3deg;
+      }
+
+      @keyframes popUpFromBottom {
+        to {
+          transform: translateY(0) rotate(var(--rot));
+        }
+      }
+
+      /* Right Side: Header and Passcode UI */
+      .lock-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        background: radial-gradient(circle at center, #161622 0%, #0d0d11 100%);
+      }
+
+      .surprise-heading {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .surprise-heading h2 {
+        font-size: 2.5rem;
+        color: #ffffff;
+        font-weight: 600;
+        text-shadow:
+          0 0 10px rgba(255, 255, 255, 0.4),
+          0 0 20px var(--gold-color);
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+      }
+
+      .surprise-heading p {
+        color: var(--gold-color);
+        font-size: 0.95rem;
+        opacity: 0.9;
+      }
+
+      .lock-container {
+        background: rgba(22, 22, 31, 0.8);
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        max-width: 350px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .pin-display {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      .pin-dot {
+        width: 14px;
+        height: 14px;
+        border: 2px solid var(--gold-color);
+        border-radius: 50%;
+        transition:
+          background 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .pin-dot.active {
+        background: var(--gold-color);
+        box-shadow: 0 0 8px var(--gold-color);
+      }
+
+      .keypad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        max-width: 220px;
+        margin: 0 auto;
+      }
+
+      .key {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        color: white;
+        font-size: 1.15rem;
+        padding: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.2s;
+      }
+
+      .key:hover {
+        background: rgba(212, 175, 55, 0.15);
+        border-color: var(--gold-color);
+      }
+
+      .key.clear {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      /* --- MAIN SURPRISE CONTENT --- */
+      #main-content {
+        display: none;
+        opacity: 0;
+        transition: opacity 1s ease-in;
+        padding: 40px 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .birthday-title {
+        font-family: "Dancing Script", cursive;
+        font-size: 4rem;
+        color: var(--accent-color);
+        margin-bottom: 10px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      header p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      .section-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+      }
+
+      /* --- MATCHING INTERACTIVE TEMPLATE LAYOUTS --- */
+      .interactive-frame {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: 20px auto;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      }
+      .interactive-frame img {
+        width: 100%;
+        display: block;
+      }
+
+      /* Floating Elements Layer Container */
+      .floating-overlay-item {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        transition:
+          opacity 0.5s ease-in-out,
+          transform 0.5s ease-in-out;
+        pointer-events: none;
+      }
+
+      .flower-pos {
+        bottom: 20px;
+        font-size: 5rem;
+        letter-spacing: -10px;
+      }
+
+      .cake-container {
+        font-size: 4rem;
+        margin: 20px 0;
+        position: relative;
+        display: inline-block;
+      }
+      .candles {
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5rem;
+        transition: opacity 0.5s;
+      }
+
+      .action-trigger-btn {
+        background: linear-gradient(45deg, #ff4d6d, #ff758f);
+        color: white;
+        border: 3px solid #ffffff;
+        padding: 15px 35px;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+        box-shadow:
+          0 0 20px rgba(255, 77, 109, 0.8),
+          0 0 40px rgba(255, 77, 109, 0.4);
+        animation: pulseButton 1.5s infinite;
+      }
+      @keyframes pulseButton {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .action-trigger-btn:hover {
+        transform: scale(1.03);
+        background: #ff3356;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .polaroid {
+        background: white;
+        padding: 15px 15px 30px 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        transform: rotate(-3deg);
+        transition: transform 0.3s;
+      }
+      .polaroid:nth-child(even) {
+        transform: rotate(3deg);
+      }
+      .polaroid img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+      .polaroid .caption {
+        font-family: "Dancing Script", cursive;
+        color: #222;
+        font-size: 1.5rem;
+        margin-top: 15px;
+      }
+
+      .letter-content {
+        text-align: left;
+        line-height: 1.8;
+        color: #e2e2e9;
+        white-space: pre-line;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* --- GIFT BOX SECTION --- */
+      .gift-container {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding: 20px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.02) 0%,
+          rgba(212, 175, 55, 0.05) 100%
+        );
+        border: 1px dashed rgba(212, 175, 55, 0.3);
+        border-radius: 15px;
+        margin-top: 20px;
+      }
+
+      .gift-box {
+        font-size: 4rem;
+        cursor: pointer;
+        transition:
+          transform 0.3s ease,
+          filter 0.3s;
+        animation: giftWobble 3s ease-in-out infinite;
+      }
+
+      .gift-box:nth-child(2) {
+        animation-delay: 1.5s;
+      }
+
+      .gift-box:hover {
+        transform: scale(1.2) rotate(5deg);
+        filter: drop-shadow(0 0 15px var(--gold-color));
+      }
+
+      @keyframes giftWobble {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        50% {
+          transform: rotate(5deg);
+        }
+      }
+
+      /* --- FULL SCREEN CAKE OVERLAY --- */
+      #cake-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(13, 13, 17, 0.98);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      .fullscreen-cake {
+        font-size: 8rem;
+        margin-bottom: 30px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .cut-btn {
+        background: gold;
+        color: #111;
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        transition: transform 0.2s;
+      }
+
+      .cut-btn:hover {
+        transform: scale(1.05);
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @media (max-width: 800px) {
+        #lock-screen {
+          flex-direction: column;
+        }
+        .lock-left {
+          min-height: 250px;
+          padding: 20px;
+        }
+        .popup-photo {
+          width: 100px;
+        }
+        .lock-right {
+          padding: 20px;
+        }
+        .surprise-heading h2 {
+          font-size: 2rem;
+        }
+      }
+
+      /* ===== PREMIUM ENHANCEMENTS ===== */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(circle, #fff 1px, transparent 1px),
+          radial-gradient(circle, #d4af37 1px, transparent 1px);
+        background-size:
+          50px 50px,
+          100px 100px;
+        opacity: 0.25;
+        pointer-events: none;
+        z-index: -1;
+        animation: twinkle 10s linear infinite;
+      }
+      @keyframes twinkle {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-100px);
+        }
+      }
+
+      .birthday-title {
+        text-shadow:
+          0 0 10px #ff4d6d,
+          0 0 25px #ff4d6d,
+          0 0 50px #d4af37 !important;
+      }
+
+      .section-card {
+        background: rgba(255, 255, 255, 0.05) !important;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .polaroid:hover {
+        transform: translateY(-10px) scale(1.05) !important;
+        box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+      }
+
+      .petal {
+        position: fixed;
+        top: -50px;
+        font-size: 25px;
+        pointer-events: none;
+        animation: fall linear forwards;
+        z-index: 999;
+      }
+      .photo-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .photo-content {
+        text-align: center;
+        background: #16161f;
+        padding: 25px;
+        border-radius: 20px;
+        max-width: 500px;
+        width: 90%;
+      }
+
+      .photo-content img {
+        width: 100%;
+        border-radius: 15px;
+        margin: 15px 0;
+      }
+
+      .close-btn {
+        float: right;
+        cursor: pointer;
+        font-size: 24px;
+      }
+      .floating-memory {
+        position: fixed;
+        bottom: -250px;
+        width: 180px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        z-index: 9998;
+        animation: memoryFly 10s linear forwards;
+      }
+      .rain-photo {
+        position: fixed;
+        top: -250px;
+        width: 120px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 12px;
+        z-index: 9999;
+        animation: photoRain 8s linear forwards;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      @keyframes photoRain {
+        from {
+          transform: translateY(0) rotate(0deg);
+        }
+
+        to {
+          transform: translateY(120vh) rotate(360deg);
+        }
+      }
+
+      @keyframes memoryFly {
+        from {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+
+        10% {
+          opacity: 1;
+        }
+
+        to {
+          transform: translateY(-130vh) rotate(20deg);
+          opacity: 0;
+        }
+      }
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-screen">
+      <h1>For Someone Truly Special ❤️</h1>
+      <p>A journey made with love, memories and surprises...</p>
+    </div>
+    <div class="section-card reveal">
+      <h2>Happy Birthday Mani ❤️</h2>
+
+      <p>
+        May your life be filled with happiness, love, success and endless
+        smiles.
+      </p>
+
+      <h1>🌻✨🎂❤️✨🌻</h1>
+    </div>
+    <div class="stars"></div>
+    <div id="petals-container"></div>
+    <div class="cursor-glow"></div>
+    <div class="stars"></div>
+    <div id="lock-screen">
+      <div class="lock-left">
+        <div class="popup-photo">
+          <img src="1.jpeg" alt="Photo 1" />
+        </div>
+        <div class="popup-photo">
+          <img src="2.jpeg" alt="Photo 2" />
+        </div>
+        <div class="popup-photo">
+          <img src="3.jpeg" alt="Photo 3" />
+        </div>
+      </div>
+      <div class="section-card reveal">
+        <h3 class="section-title">Birthday Wishes Received</h3>
+
+        <h1 id="wishCounter">0</h1>
+      </div>
+
+      <div class="lock-right">
+        <div class="surprise-heading">
+          <h2>Surprise Ahead ✨</h2>
+          <p>Enter our special 4-digit secret code</p>
+        </div>
+
+        <div class="lock-container">
+          <div class="pin-display">
+            <div class="pin-dot" id="dot-0"></div>
+            <div class="pin-dot" id="dot-1"></div>
+            <div class="pin-dot" id="dot-2"></div>
+            <div class="pin-dot" id="dot-3"></div>
+          </div>
+
+          <div class="keypad">
+            <button class="key" onclick="pressKey('1')">1</button>
+            <button class="key" onclick="pressKey('2')">2</button>
+            <button class="key" onclick="pressKey('3')">3</button>
+            <button class="key" onclick="pressKey('4')">4</button>
+            <button class="key" onclick="pressKey('5')">5</button>
+            <button class="key" onclick="pressKey('6')">6</button>
+            <button class="key" onclick="pressKey('7')">7</button>
+            <button class="key" onclick="pressKey('8')">8</button>
+            <button class="key" onclick="pressKey('9')">9</button>
+            <button class="key clear" onclick="clearPin()">Clear</button>
+            <button class="key" onclick="pressKey('0')">0</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="main-content">
+      <header>
+        <h1 class="birthday-title">Happy Birthday, Mani! 🎂</h1>
+        <p>Today is all about celebrating someone truly special ✨</p>
+      </header>
+
+      <div class="section-card">
+        <h3 class="section-title">Accept Your Sunflower Bouquet</h3>
+        <div class="interactive-frame">
+          <img
+            src="image_3.png"
+            alt="Little girl gifting sunflowers to the camera"
+          />
+          <div class="floating-overlay-item flower-pos" id="live-bouquet">
+            🌻🌻
+          </div>
+        </div>
+        <br />
+        <button
+          class="action-trigger-btn"
+          id="flower-action-btn"
+          onclick="takeFlowers()"
+        >
+          Accept Sunflowers 🌻
+        </button>
+      </div>
+      <div class="section-card reveal">
+        <h3 class="section-title">Why You Are So Special ❤️</h3>
+
+        <div class="reason-grid">
+          <div class="reason-card">
+            😊
+            <h4>Your Smile</h4>
+            <p>Brightens every room you walk into.</p>
+          </div>
+
+          <div class="reason-card">
+            🌻
+            <h4>Your Kindness</h4>
+            <p>Makes everyone feel loved.</p>
+          </div>
+
+          <div class="reason-card">
+            ✨
+            <h4>Your Presence</h4>
+            <p>Makes ordinary moments magical.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Playing Just For You 🤍</h3>
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+          "
+        >
+          "Tere jaisa yaar kahan, kahan aisa yaarana..."
+        </p>
+        <div
+          style="
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+          "
+        >
+          <div
+            style="
+              position: relative;
+              padding-bottom: 56.25%;
+              height: 0;
+              overflow: hidden;
+              max-width: 100%;
+              border-radius: 12px;
+              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            "
+          >
+            <audio id="birthdaySong" src="song.mpeg"></audio>
+
+            <button
+              class="action-trigger-btn"
+              onclick="document.getElementById('birthdaySong').play()"
+            >
+              ▶ Play
+            </button>
+
+            <button
+              class="action-trigger-btn"
+              onclick="document.getElementById('birthdaySong').pause()"
+            >
+              ⏸ Pause
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="music-bars">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="section-card reveal">
+        <h3 class="section-title">Our Beautiful Journey</h3>
+
+        <div class="timeline">
+          <div class="timeline-item">❤️ First Meeting</div>
+
+          <div class="timeline-item">📸 First Photo Together</div>
+
+          <div class="timeline-item">🎂 First Birthday Celebration</div>
+
+          <div class="timeline-item">✨ Countless Memories</div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Make a Birthday Wish and blow the Candles</h3>
+        <div class="cake-container">
+          <div class="candles" id="candles">🔥 🔥 🔥</div>
+          <div class="cake">🎂</div>
+        </div>
+        <br />
+        <button
+          class="action-trigger-btn"
+          id="wish-btn"
+          onclick="blowCandles()"
+        >
+          Blow out the candles!
+        </button>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">I Saved These Memories For You</h3>
+        <div class="gallery">
+          <div class="polaroid">
+            <img src="8.jpeg" alt="Memory 1" />
+            <div class="caption">The best day! ✨</div>
+          </div>
+          <div class="polaroid">
+            <img src="13.jpeg" alt="Memory 2" />
+            <div class="caption">Partners in crime 🤍</div>
+          </div>
+          <div class="polaroid">
+            <img src="16.jpeg" alt="Memory 3" />
+            <div class="caption">Always laughing 😂</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">A Letter From My Heart</h3>
+        <div class="letter-content">
+          My dearest Mani, I don't say this enough, but I'm incredibly lucky to
+          have you in my life. You make everything brighter, even on the hardest
+          days. On your birthday, I just want you to know how much you mean to
+          me. I hope this year brings you everything you've been wishing for and
+          more. Forever yours, Mouni ❤️
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Pick Your Birthday Present 🎁</h3>
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+          "
+        >
+          Choose wisely... one of these boxes holds a sweet surprise!
+        </p>
+        <div class="gift-container">
+          <div class="gift-box" onclick="pickGift()">🎁</div>
+
+          <div class="gift-box" onclick="showPhotoGift()">🎁</div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 40px">
+        <button
+          onclick="startPhotoRain()"
+          style="
+            background: #ff4d6d;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 25px #ff4d6d;
+            margin: 30px auto;
+            display: block;
+          "
+        >
+          🎉 FINAL SURPRISE 🎉
+        </button>
+
+        <button class="action-trigger-btn" onclick="startPhotoRain()">
+          📸 CLICK FOR FINAL SURPRISE ❤️
+        </button>
+      </div>
+      <div id="photoGiftModal" class="photo-modal">
+        <div class="photo-content">
+          <span onclick="closePhotoGift()" class="close-btn">✖</span>
+
+          <h2>Special Surprise ❤️</h2>
+
+          <img src="surprise-photo.jpg" alt="Special Memory" />
+
+          <p>You are my favorite person 🌻❤️</p>
+        </div>
+      </div>
+
+      <div id="cake-overlay">
+        <h2
+          style="
+            font-family: &quot;Dancing Script&quot;, cursive;
+            font-size: 3.5rem;
+            color: var(--gold-color);
+            margin-bottom: 10px;
+          "
+        >
+          Time to Celebrate!
+        </h2>
+        <p style="color: var(--text-muted); margin-bottom: 30px">
+          Click below to cut your official birthday cake!
+        </p>
+        <div class="fullscreen-cake" id="big-cake">🎂</div>
+        <button class="cut-btn" id="cut-action-btn" onclick="cutTheCake()">
+          Slice the Cake 🔪
+        </button>
+      </div>
+    </div>
+    <script>
+      const SECRET_CODE = "2004";
+      let enteredPin = "";
+      let count = 0;
+
+      setInterval(() => {
+        count++;
+
+        document.getElementById("wishCounter").innerText = count;
+      }, 1000);
+      function showNote(id) {
+        const notes = [
+          "You make every day beautiful ❤️",
+          "You are my favourite person 🌻",
+          "Thank you for being you ✨",
+        ];
+
+        alert(notes[id - 1]);
+      }
+      function pressKey(num) {
+        if (enteredPin.length < 4) {
+          enteredPin += num;
+          updateDots();
+          if (enteredPin.length === 4) {
+            setTimeout(checkPin, 250);
+          }
+        }
+      }
+
+      function clearPin() {
+        enteredPin = "";
+        updateDots();
+      }
+
+      function updateDots() {
+        for (let i = 0; i < 4; i++) {
+          const dot = document.getElementById(`dot-${i}`);
+          if (i < enteredPin.length) {
+            dot.classList.add("active");
+          } else {
+            dot.classList.remove("active");
+          }
+        }
+      }
+
+      function checkPin() {
+        if (enteredPin === SECRET_CODE) {
+          document.getElementById("lock-screen").style.display = "none";
+          const mainContent = document.getElementById("main-content");
+          mainContent.style.display = "block";
+          setTimeout(() => {
+            mainContent.style.opacity = "1";
+            triggerConfetti();
+          }, 50);
+        } else {
+          alert("Incorrect code! Hint: Think of a special date 😉");
+          clearPin();
+        }
+      }
+
+      function takeFlowers() {
+        const bouquet = document.getElementById("live-bouquet");
+        const btn = document.getElementById("flower-action-btn");
+
+        if (bouquet.innerText !== "🥰💐") {
+          bouquet.style.opacity = "0";
+          bouquet.style.transform = "translateX(-50%) scale(1.8)";
+
+          setTimeout(() => {
+            bouquet.innerText = "🥰💐"; // Received securely with joy
+            bouquet.style.opacity = "1";
+            bouquet.style.transform = "translateX(-50%) scale(1)";
+            btn.style.background = "#2a9d8f";
+            btn.innerText = "Bouquet Received! 🌻🤍";
+            triggerConfetti();
+            for (let i = 0; i < 30; i++) {
+              const heart = document.createElement("div");
+
+              heart.innerHTML = "💖";
+
+              heart.style.position = "fixed";
+              heart.style.left = Math.random() * 100 + "vw";
+              heart.style.top = "100vh";
+              heart.style.fontSize = "25px";
+
+              heart.style.transition = "4s";
+
+              document.body.appendChild(heart);
+
+              setTimeout(() => {
+                heart.style.top = "-100px";
+              }, 50);
+
+              setTimeout(() => {
+                heart.remove();
+              }, 4000);
+            }
+          }, 400);
+        }
+      }
+
+      function blowCandles() {
+        const candles = document.getElementById("candles");
+        const btn = document.getElementById("wish-btn");
+        if (candles.innerText !== "💨") {
+          candles.style.opacity = "0";
+          setTimeout(() => {
+            candles.innerText = "💨";
+            candles.style.opacity = "1";
+            btn.innerText = "Your wish is sent! ✨";
+            triggerConfetti();
+          }, 500);
+        }
+      }
+
+      function pickGift() {
+        const overlay = document.getElementById("cake-overlay");
+        overlay.style.display = "flex";
+        setTimeout(() => {
+          overlay.style.opacity = "1";
+          triggerConfetti();
+        }, 50);
+      }
+
+      function cutTheCake() {
+        const bigCake = document.getElementById("big-cake");
+        const cutBtn = document.getElementById("cut-action-btn");
+
+        if (bigCake.innerText === "🎂") {
+          bigCake.style.transform = "scale(0.9)";
+          setTimeout(() => {
+            bigCake.innerText = "🍰🍰";
+            bigCake.style.transform = "scale(1)";
+            cutBtn.innerText = "Close & Enjoy! ❤️";
+            triggerConfetti();
+          }, 300);
+        } else {
+          const overlay = document.getElementById("cake-overlay");
+          overlay.style.opacity = "0";
+          setTimeout(() => {
+            overlay.style.display = "none";
+          }, 500);
+        }
+      }
+      const compliments = [
+        "Beautiful ❤️",
+        "Amazing ✨",
+        "Wonderful 🌻",
+        "Special 💖",
+        "Adorable 🥰",
+      ];
+
+      setInterval(() => {
+        const text = document.createElement("div");
+
+        text.innerHTML =
+          compliments[Math.floor(Math.random() * compliments.length)];
+
+        text.style.position = "fixed";
+        text.style.bottom = "0";
+        text.style.left = Math.random() * 100 + "vw";
+        text.style.color = "white";
+        text.style.fontSize = "24px";
+
+        document.body.appendChild(text);
+
+        setTimeout(() => {
+          text.remove();
+        }, 5000);
+      }, 4000);
+
+      function triggerConfetti() {
+        confetti({
+          particleCount: 150,
+          spread: 80,
+          origin: { y: 0.6 },
+          colors: ["#ff4d6d", "#ff758f", "#ffb3c1", "#ffffff"],
+        });
+      }
+      function showPhotoGift() {
+        document.getElementById("photoGiftModal").style.display = "flex";
+        triggerConfetti();
+      }
+
+      function closePhotoGift() {
+        document.getElementById("photoGiftModal").style.display = "none";
+      }
+      function startPhotoRain() {
+        const photos = [
+          "1.jpeg",
+          "2.jpeg",
+          "3.jpeg",
+          "4.jpeg",
+          "5.jpeg",
+          "6.jpeg",
+          "7.jpeg",
+          "8.jpeg",
+          "9.jpeg",
+          "10.jpeg",
+          "11.jpeg",
+          "12.jpeg",
+          "13.jpeg",
+          "14.jpeg",
+          "15.jpeg",
+          "16.jpeg",
+        ];
+
+        triggerConfetti();
+
+        for (let i = 0; i < 50; i++) {
+          setTimeout(() => {
+            const img = document.createElement("img");
+
+            img.src = photos[Math.floor(Math.random() * photos.length)];
+
+            img.className = "rain-photo";
+
+            img.style.left = Math.random() * 100 + "vw";
+
+            img.style.animationDuration = 5 + Math.random() * 5 + "s";
+
+            document.body.appendChild(img);
+
+            setTimeout(() => {
+              img.remove();
+            }, 10000);
+          }, i * 200);
+        }
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>
